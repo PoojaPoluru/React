@@ -3,3 +3,19 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+ul{
+    padding: 0px;
+}
+li{
+    list-style-type: none;
+
+}
+.languages{
+    display: flex;
+    justify-content: center;
+}
+.languages li{
+    margin:10px;
+    font-weight: bold;
+    cursor: pointer;
+}
