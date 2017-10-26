@@ -7,7 +7,8 @@ import {
     BrowserRouter as Router,
     Route,
     Link
-} from 'react-router-dom'
+} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 import Nav from './Nav';
 
 class App extends Component {
@@ -16,9 +17,16 @@ class App extends Component {
         <Router>
       <div className="App">
           <Nav/>
+          <Switch>
           <Route exact path="/battle" component={Battle}/>
           <Route exact path="/" component={Home}/>
-          <Route path="/popular" component={Popular}/>
+          <Route exact path="/popular" component={Popular}/>
+              <Route render={function(){
+                      return(
+                          <p>The page you requested is Not Found!</p>
+                      )}
+              } />
+          </Switch>
       </div>
         </Router>
     );

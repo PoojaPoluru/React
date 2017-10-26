@@ -57,11 +57,12 @@ a{
 .nav li{
 margin-right: 15px;
 }
-
-.nav home-nav{
-    margin-left: 15px;
-
+p{
+    text-align: center;
+    font-size: xx-large;
+    margin-top: 200px;
 }
+
 .home-container{
     display:flex;
     flex-direction: column;

@@ -8,7 +8,7 @@ class Battle extends Component{
     render() {
         return(
             <div>
-                Battle
+                Battle!
             </div>
 
         )
