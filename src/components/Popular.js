@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
+import api from '../utils/api.js'
 function SelectLanguage(props){
     var languages=['All','JavaScript','Ruby','Java','CSS','Python'];
     return(
@@ -10,7 +11,8 @@ function SelectLanguage(props){
                     <li
                         style={lang===props.selectedLanguage?{color:'#d0021b'}:null}
                         onClick={props.onSelect.bind(null,lang)}
-                        key={lang}>
+                        key={lang}
+                    >
                         {lang}
                     </li>
                 )})
@@ -29,16 +31,27 @@ class Popular extends Component{
     constructor(props){
         super(props);
         this.state={
-            selectedLanguage:'All'
+            selectedLanguage:'All',
+            repositories:null
         };
         this.updatedLanguage=this.updatedLanguage.bind(this);
+    }
+    componentDidMount(){
+        this.updatedLanguage(this.state.selectedLanguage);
+
     }
     updatedLanguage(lang){
         this.setState(function(){
             return{
-                selectedLanguage:lang
+                selectedLanguage:lang,
+                repositories:null
             }
-        })
+        });
+        api.fetchPopularRepos(lang)
+            .then(function(repositories){
+                console.log(repositories);
+            })
+
     }
     render(){
         return(
