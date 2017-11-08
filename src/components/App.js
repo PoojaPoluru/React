@@ -3,6 +3,7 @@ import '../index.css';
 import Popular from './Popular';
 import Home from './Home';
 import Battle from './Battle';
+import Results from './Results'
 import {
     BrowserRouter as Router,
     Route,
@@ -20,6 +21,7 @@ class App extends Component {
           <Switch>
           <Route exact path="/battle" component={Battle}/>
           <Route exact path="/" component={Home}/>
+              <Route path="/battle/results" component={Results}/>
           <Route exact path="/popular" component={Popular}/>
               <Route render={function(){
                       return(
