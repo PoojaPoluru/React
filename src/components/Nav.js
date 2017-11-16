@@ -1,7 +1,7 @@
 /**
  * Created by Pooja on 26-10-2017.
  */
-import React, { Component } from 'react';
+import React from 'react';
 import {NavLink as NavLink} from'react-router-dom';
 
 function Nav(){

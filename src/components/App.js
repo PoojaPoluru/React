@@ -7,7 +7,6 @@ import Results from './Results'
 import {
     BrowserRouter as Router,
     Route,
-    Link
 } from 'react-router-dom';
 import {Switch} from 'react-router-dom';
 import Nav from './Nav';

@@ -1,17 +1,17 @@
 import axios from 'axios';
 
-/*var id='Client_id';
-var secret='Client_secret';
-var params='?client_id' + id+ '&client_secret=' + sec;*/
+var id='d9a55fb726c8eece7397';
+var secret='ab518fcffec667ee2a7429b5dbd96329734b7ecc';
+var params='?client_id=' + id+ '&client_secret=' + secret;
 
 function getProfile(username){
-    return axios.get('https:/github.com/users'+username)
+    return axios.get('https://api.github.com/users/'+username+ params)
         .then(function(user){
             return user.data;
         });
 }
 function getRepos(username){
-    return axios.get('https://github.com/users'+username+'/repos'+'&per_page=100')
+    return axios.get('https://api.github.com/users/' + username + params + '/repos'+' &per_page=100')
 }
 
 function getStarCount(repos){
@@ -25,7 +25,7 @@ function getStarCount(repos){
 function calculateScore(profile,repos){
     var followers=profile.followers;
     var totalStars=getStarCount(repos);
-    return (followers*3)+totalStars;
+    return (followers*4)+totalStars;
 
 }
 
@@ -34,7 +34,36 @@ function handleError(error){
     return null;
 }
 
+function getUserData(users){
+    return axios.all([
+        getProfile(users),
+        getRepos(users)
+
+    ]).then(function(data){
+        var profile=data[0];
+        var repos=data[1];
+        return{
+            profile:profile,
+            score:calculateScore(profile,repos),
+        }
+    })
+}
+
+function sortUsers(users){
+    return users.sort(function(a,b){
+        return b.score-a.score;
+    })
+}
+
+
+
+
 export default {
+    Battle:function(users){
+        return axios.all(users.map(getUserData))
+            .then(sortUsers)
+            .catch(handleError)
+    },
     fetchPopularRepos:function(language){
         var encodedURI=window.encodeURI('https://api.github.com/search/repositories?q=stars:>1+language:'+ language + '&sort=stars&order=desc&type=Repositories')
 
