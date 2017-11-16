@@ -2,9 +2,29 @@
  * Created by Pooja on 08-11-2017.
  */
 import React,{Component} from 'react';
+import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import {Link as Link} from 'react-router-dom';
 import api from '../utils/api.js';
+import PlayerPreview from './PlayerPreview';
+
+
+function Player(props){
+    return(
+        <div>
+            <h1 className="header">{props.label}</h1>
+            <h3 style={{textAlign:'center'}}>{props.score}</h3>
+        </div>
+    )
+
+
+}
+
+Player.PropTypes={
+    label:PropTypes.string.isRequired,
+    score:PropTypes.string.isRequired,
+    profile:PropTypes.string.isRequired
+}
 
 class Results extends Component{
     constructor(props){
@@ -64,8 +84,18 @@ class Results extends Component{
         }
 
         return(
-            <div>
-                {JSON.stringify(this.state,null,2)}
+            <div className="row">
+                <Player
+                    label="Winner"
+                    score={winner.score}
+                    profile={winner.profile}
+                />
+                <Player
+                    label="Loser"
+                    score={loser.score}
+                    profile={loser.profile}
+                />
+
             </div>
         )
     }
